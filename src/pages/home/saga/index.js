@@ -1,4 +1,4 @@
-import {FETCHTOPIC,FETCHTOPIC_SUCCESS, FETCH_LIST, FETCH_LIST_SUCCESS} from './../store/constants'
+import {FETCHTOPIC,FETCHTOPIC_SUCCESS, FETCH_LIST, FETCH_LIST_SUCCESS, FETCH_WRITER_SUCCESS, FETCH_WRITER} from './../store/constants'
 import axios from 'axios'
 import {call,put,takeLatest,takeEvery} from 'redux-saga/effects'
  function * gTopic () {
@@ -16,11 +16,21 @@ import {call,put,takeLatest,takeEvery} from 'redux-saga/effects'
   // console.log(list)
   yield put({type:FETCH_LIST_SUCCESS,list:list.data})
 }
-  function * watchgList () {
+ function * watchgList () {
     yield takeEvery(FETCH_LIST,gList)
-  }
+ }
+
+ function * gWriter () {
+   const writer = yield call(axios.get,'/mock/writer.json')
+  //  console.log(writer)
+   yield put({type:FETCH_WRITER_SUCCESS,writer:writer.data})
+ }
+ function * watchgWriter () {
+   yield takeEvery(FETCH_WRITER,gWriter)
+ }
 
 export const homeSaga = [
   watchgList(),
-  watchgTopic()
+  watchgTopic(),
+  watchgWriter()
 ]

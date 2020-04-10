@@ -163,3 +163,56 @@
     }
   }
 }
+
+// writer部分------------------------------------
+.writer{
+  margin-top: 30px;
+
+  .title {
+    color: #969696;
+    font-size: 14px;
+    .change {
+      float: right;
+      i{
+        margin-right: 3px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  li{
+    overflow: hidden;
+    margin-top: 15px;
+    line-height: 20px;
+    a{
+      text-decoration: none;
+    }
+    .name {
+      display: block;
+      color:#333;
+      padding-top: 5px;
+      font: 14px 微软雅黑;
+    }
+    p {
+      color: #969696;
+      margin:2px 0 10px 0;
+      font: 12px 微软雅黑;
+      line-height: 20px;
+    }
+  }
+  .avator {
+    float: left;
+    margin-right: 10px;
+    img{
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+    }
+  }
+  .follow {
+    float: right;
+    color:#42a02e;
+    margin-top: 5px;
+    font-size: 13px;
+  }
+}

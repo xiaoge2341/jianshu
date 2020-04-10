@@ -5,7 +5,7 @@ import {fetchList} from './../store/actions'
 class List extends Component {
   render() {
     let {homeList} = this.props.homeReducer.toJS()
-    console.log(homeList)
+    // console.log(homeList)
     return (
       <div>
         <ul className={styles.note_list}>
