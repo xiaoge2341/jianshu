@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styles from './../style.module.scss'
-export default class Recommon extends Component {
+export default class Recommon extends PureComponent {
   render() {
     return (
       <div className={styles.recommon}>

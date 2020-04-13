@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styles from './../style.module.scss'
 import {fetchWriter} from './../store/actions'
-class Writer extends Component {
+class Writer extends PureComponent {
   render() {
     // console.log(this.props)
     // console.log(this.props.homeReducer.toJS())
     let writer = this.props.homeReducer.get('writer')
-    console.log(writer)
+    // console.log(writer)
     return (
       <div>
         <ul className={styles.writer}>

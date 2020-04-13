@@ -1,16 +1,21 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styles from './../style.module.scss'
 import {connect} from 'react-redux'
-import {fetchList} from './../store/actions'
-class List extends Component {
+import {fetchList,fetchMoreList} from './../store/actions'
+// console.log(Component)
+class List extends PureComponent {
+  
   render() {
-    let {homeList} = this.props.homeReducer.toJS()
-    // console.log(homeList)
+    let {homeList,homeListPage} = this.props.homeReducer.toJS()
+    // console.log(homeList&&moreList ? homeList.concat(moreList&&moreList.data):homeList)
+    
+    const listData = homeList && homeList
+    // console.log(homeListPage)
     return (
       <div>
         <ul className={styles.note_list}>
           {
-            homeList&&homeList.map((value,index) => {
+            listData.map((value,index) => {
               return (
                 <li key={index}>
                   <div className={styles.content}>
@@ -26,7 +31,7 @@ class List extends Component {
                       <a href="script:;" className={styles.nickname}>
                         {value.WriterName}
                       </a>
-                      <a href="">
+                      <a href="script:;">
                         <i className='iconfont'>&#xe66d;</i>
                         {value.commentNum}
                       </a>
@@ -52,10 +57,16 @@ class List extends Component {
           
 
         </ul>
+        <div className={styles.more}
+          onClick={()=>this.props.fetchMoreList(homeListPage)}
+        >
+          阅读更多
+        </div>
       </div>
     )
   }
   componentDidMount(){
+    // console.log(this.props)
     this.props.fetchList()
   }
 }
@@ -67,4 +78,4 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState,{fetchList})(List)
+export default connect(mapState,{fetchList,fetchMoreList})(List)

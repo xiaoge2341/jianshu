@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styles from './../style.module.scss'
 import img1 from './../img/1.jpg'
 import {connect} from 'react-redux'
 import {fetctTopic} from './../store/actions'
- class Topic extends Component {
+ class Topic extends PureComponent {
 
   render() {
-    let {fetctTopic} = this.props
     let {topic} = this.props.homeReducer.toJS()
     // console.log(topic)
     return (

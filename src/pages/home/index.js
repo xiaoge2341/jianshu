@@ -1,13 +1,32 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import {connect} from 'react-redux'
 import styles from './style.module.scss'
 import Topic from './components/Topic'
 import List from './components/List'
 import Recommon from './components/Recommon'
 import Writer from './components/Writer'
-import {connect} from 'react-redux'
+import 'animate.css'
+import {backtop} from './store/actions'
 
- class home extends Component {
+ class home extends PureComponent {
+  constructor() {
+    super();
+    this.handdleScrollTop = this.handdleScrollTop.bind(this)
+    this.handdleScroll = this.handdleScroll.bind(this)
+  }
+  handdleScrollTop() {
+    window.scrollTo(0,0)
+    
+  }
+  handdleScroll() {
+    window.scrollY > 200 ? 
+      this.props.backtop(true):
+      this.props.backtop(false)
+  }
   render() {
+    let {handdleScrollTop} = this
+    let backTopShow = this.props.homeReducer.get('backTopShow')
+    // console.log(backTopShow)
     return (
       <div>
         <div className={styles.home}>
@@ -21,19 +40,26 @@ import {connect} from 'react-redux'
             <Recommon />
             <Writer />
           </div>
+
+          {backTopShow ? <div className={styles.backTop}
+            onClick={handdleScrollTop}
+            ref='backTop'
+          >
+            回顶部
+          </div>:''}
         </div>
       </div>
     )
   }
-  componentDidMount() {
-
+  UNSAFE_componentWillMount() {
+    window.addEventListener('scroll',this.handdleScroll,true)
   }
 }
 
 const mapState = (state) => {
-  console.log(state)
   return {
-    topic:state
+    homeReducer:state.homeReducer
   }
 }
-export default connect()(home)
+
+export default connect(mapState,{backtop})(home) 

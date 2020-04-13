@@ -22,7 +22,6 @@ export const getList = (list) => {
       type:''
     }
   }
-  
 }
 
 export const mouseenter = () => {

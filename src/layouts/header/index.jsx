@@ -35,7 +35,7 @@ import 'animate.css'
     
     return (
       <header >
-        <a href = 'script:;' className = {styles.logo}></a>
+        <a href = 'script:;' className = {styles.logo}>.</a>
 
         <div className={styles.nav}>
           <div className={`${styles.navItem} ${styles.left} ${styles.active}`}>首页</div>
