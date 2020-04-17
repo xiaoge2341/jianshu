@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import styles from './style.module.scss'
 import  './../../static/iconfont/iconfont.css'
 import { connect } from 'react-redux'
 import * as actions from './store/actions'
 import 'animate.css'
+import {loginout} from './../../pages/sign_in/store/action'
 
  class Header extends Component {
   render() {
-    let {  isFocused,notFocused,mouseenter,mouseleave,changePage,getList } = this.props
+    let {  isFocused,notFocused,mouseenter,mouseleave,changePage,getList, history,loginout } = this.props
     let { focused,list,page,mouseIn,totalPage } = this.props.header.toJS()
-
+    let login = this.props.signInReducer.get('login')
     const pageList = []
     //控制，如果最后不够五个，则显示原有的数量,也就是15-19
     const listNum =  page < totalPage ? page*5 : list&&list.data.length
@@ -33,14 +35,29 @@ import 'animate.css'
       spin.style.transform = `rotate(${originDegs+360}deg)`
     }
     
+    
     return (
-      <header >
+      // <Router></Router>
+      <header className={styles.header}>
         <a href = 'script:;' className = {styles.logo}>.</a>
 
         <div className={styles.nav}>
-          <div className={`${styles.navItem} ${styles.left} ${styles.active}`}>首页</div>
+          <div className={`${styles.navItem} ${styles.left} ${styles.active}`}
+            onClick={()=>history.push('/')}
+          >首页</div>
           <div className={`${styles.navItem} ${styles.left}`}>下载App</div>
-          <div className={`${styles.navItem} ${styles.right}`}>登录</div>
+
+          {
+            login ? 
+            <div className={`${styles.navItem} ${styles.right}`}
+              onClick={()=>loginout()}
+            >退出</div> : 
+            <div className={`${styles.navItem} ${styles.right}`}
+              onClick={()=>history.push('/sign_in')}
+            >登录</div>
+          }
+          
+
           <div className={`${styles.navItem} ${styles.right}`}>Aa</div>
 
           <div className= {styles.searchWrapper}>
@@ -78,8 +95,12 @@ import 'animate.css'
         </div>
 
         <div className={styles.addition}>
-          <button className = {styles.reg}>注册</button>
-          <button className = {styles.write}>
+          <button className = {styles.reg}
+            onClick={()=>history.push('/sign_up')}
+          >注册</button>
+          <button className = {styles.write}
+            onClick={()=>history.push('/write')}
+          >
             <i className = 'iconfont iconpen'></i>
             写文章
           </button>
@@ -93,8 +114,9 @@ import 'animate.css'
 const mapStateToProps = (state) => {
   // console.log(state)
   return {
-    header : state.header
+    header : state.header,
+    signInReducer:state.signInReducer
   }
 }
 
-export default connect(mapStateToProps,actions)(Header)
+export default connect(mapStateToProps,{...actions,loginout})(withRouter(Header))

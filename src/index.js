@@ -7,7 +7,6 @@ import { createStore, applyMiddleware,  } from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import createSaga from 'redux-saga'
 import {sagas} from './saga/index'
-
 const saga = createSaga()
 const store = createStore(rootReducer, {},composeWithDevTools(applyMiddleware(saga)))
 

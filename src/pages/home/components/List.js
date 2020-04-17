@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react'
 import styles from './../style.module.scss'
 import {connect} from 'react-redux'
 import {fetchList,fetchMoreList} from './../store/actions'
+// import {Link} from 'react-router-dom'
 // console.log(Component)
 class List extends PureComponent {
   
   render() {
     let {homeList,homeListPage} = this.props.homeReducer.toJS()
     // console.log(homeList&&moreList ? homeList.concat(moreList&&moreList.data):homeList)
-    
+    let {history} = this.props
     const listData = homeList && homeList
     // console.log(homeListPage)
     return (
@@ -17,7 +18,8 @@ class List extends PureComponent {
           {
             listData.map((value,index) => {
               return (
-                <li key={index}>
+                // <Link to='/detail' key={index}>
+                <li key={index} onClick={()=>history.push(`/detail/${value.writerId}`)}>
                   <div className={styles.content}>
                     <a href="script:;" className={styles.title}>{value.title}</a>
                     <p className={styles.abstract}>
@@ -51,6 +53,7 @@ class List extends PureComponent {
                     <img src={value.imgUrl} alt=""/>
                   </a>
                 </li>
+                
               )
             })
           }
